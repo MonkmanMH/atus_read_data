@@ -1,0 +1,73 @@
+---
+title: "read ATUS data"
+author: "Martin Monkman"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(haven)
+
+# for applying labels etc to PUMF
+library(memisc)
+
+```
+
+
+```{r}
+
+#define locations of input spss files
+
+input_folder <- here::here("data")
+
+data_file <- here::here("data", "atusresp_2021.dat")
+
+#columns_file <- here::here("data", "atusresp_2021.sps")
+columns_file <- here::here("data", "atusresp_2021_columns.sps")
+
+#variable_labels <- here::here("data", "atusresp_2021_variable_labels.sps")
+
+#variable_values <- here::here("data", "atusresp_2021_variable_values.sps")
+
+#missing_values <- here::here("data", "atusresp_2021_missing.sps")
+
+project_folder <- here::here()
+
+new_dir <- setwd(project_folder)
+
+print(paste("Current directory is",getwd()))
+
+current_directory <- getwd()
+
+```
+
+
+```{r}
+
+#The next stage is to create a definition of the dataset using the spss.fixed.file import procedure saved in the variable sfs2016_efam.
+
+
+atusresp_2021 <- spss.fixed.file(
+  data_file,
+  
+  columns_file
+  
+#  varlab.file = variable_labels,
+  
+#  codes.file = variable_values,
+  
+#  missval.file = missing_values,
+  
+#  count.cases = TRUE,
+  
+#  to.lower = TRUE
+  
+)
+
+atusresp_2021
+
+```
+
